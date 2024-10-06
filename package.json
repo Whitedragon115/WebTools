@@ -1,0 +1,14 @@
+{
+  "name": "webtools",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dp": "git add . && git commit -m \"auto update (Power By Whitedragon)\" && git push"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.0"
+  }
+}
