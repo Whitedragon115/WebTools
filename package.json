@@ -9,6 +9,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.21.0"
+    "-": "^0.0.1",
+    "@prisma/client": "^5.20.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "prisma": "^5.20.0",
+    "react-snowfall": "^2.1.1",
+    "save-dev": "^0.0.1-security"
+  },
+  "prisma": {
+    "schema": "prisma/schema.prisma"
   }
 }
