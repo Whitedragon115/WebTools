@@ -1,26 +1,11 @@
 const express = require('express');
 const path = require('path');
+require('dotenv').config();
 
-const app = express();
-const PORT = 4002;
+const PORT = process.env.webport;
 
-// Serve static files from the 'public' directory, and map index.html to the folder path
-app.use(express.static(path.join(__dirname, 'public'), {
-    extensions: ['html'],
-}));
+const {  } = require('./api/tmpfile-v1.0')
+const web = require('./web/init.js')
 
-app.get('/:folder', (req, res) => {
-    const folderPath = path.join(__dirname, 'public', req.params.folder, 'index.html');
-    res.sendFile(folderPath, (err) => {
-        if (err) {
-            res.status(404).send('Page not found');
-        }
-    });
-});
+web.start(PORT);
 
-app.listen(PORT, () => {
-    console.log(`Server is running on http://tool.whitedragon.life`);
-});
-
-
-//test
