@@ -21,10 +21,10 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
             expandingCircle.classList.add("expand");
             requestAnimationFrame(() => {
-                expandingCircle.style.width = "2000px";
-                expandingCircle.style.height = "2000px";
-                expandingCircle.style.bottom = "-1000px";
-                expandingCircle.style.left = "calc(50% - 1000px)";
+                expandingCircle.style.width = "115vw";
+                expandingCircle.style.height = "115vw";
+                expandingCircle.style.bottom = "-55vw";
+                expandingCircle.style.left = "calc(50% - 57.5vw)";
                 expandingCircle.style.background = "rgba(0, 0, 0, 0.5)";
                 expandingCircle.style.transform = "none";
             });
