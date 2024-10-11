@@ -18,40 +18,26 @@ body {
     margin: 0;
     font-family: Arial, sans-serif;
     overflow: hidden;
+    transition: all 1s ease-in-out;
 }
 
-.text-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.animation-spin {
     animation: pulsate 5s infinite alternate;
 }
 
-.text-container::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
+.background-mid-container {
     width: 600px;
     height: 600px;
     background-image: url('https://i.imgur.com/94zZvda.png');
     background-size: contain;
     background-repeat: no-repeat;
-    transform: translate(-50%, -50%) rotate(0deg);
-    z-index: 1;
     opacity: 0.8;
-    animation: rotate 30s linear infinite;
+    animation: rotate 60s linear infinite;
 }
 
-.text {
-    position: relative;
-    font-size: 10rem;
-    font-weight: bold;
-    color: #576bc4;
-    z-index: 2;
-    align-items: center;
-    justify-content: center;
+.bg-out-container {
+    transform: scale(1);
+    transition: all 1s ease-in-out;
 }
 
 .border-lines {
@@ -86,44 +72,36 @@ body {
     border-top: none;
 }
 
-.maintext {
+.mid-text {
     font-family: 'Pixel-Text';
-    font-size: 10rem;
-    color: #2e2e2e;
+    transition: all 1s ease-in-out;
 }
 
-.top-btn-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    padding: 10px;
-    z-index: 2;
-    align-items: center;
+.mid-text.active {
+    transition-delay: 1s;
+    transform: translateY(-20rem);
+    width: fit-content;
+    height: fit-content;
+    padding: 2rem;
+    border-radius: 2rem;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    box-shadow: 0 0 5rem rgba(0, 0, 0, 1);
 }
 
-.avatar {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: #ffffff 4px solid;
-    cursor: pointer;
+
+.left-top-avatar {
     transition: transform 0.3s;
+    transform: scale(0.9);
     box-shadow: 0 0px 25px 10px rgba(255, 255, 222, 0.9);
-    z-index: 2;
+}
+
+.left-top-avatar.active {
+    transform: scale(1) rotate(360deg);
 }
 
 .toolbtn {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
     transition: all 0.3s;
-    z-index: 2;
 }
 
 .toolbtn:hover {
@@ -136,32 +114,20 @@ body {
     bottom: 20px;
 }
 
-.avatar.active {
-    transform: scale(1.1) rotate(360deg);
-}
 
-.dropdown-menu {
-    display: none;
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: rgba(53, 53, 53, 0.381);
-    border-radius: 50px;
-    box-shadow: 0 4px 30px rgba(255, 255, 255, 0.9);
-    border: #010101a4 2px solid;
-    z-index: 1;
-    opacity: 0;
-    transition: opacity 0.3s ease, transform 0.3s ease;
+.avatar-dropmenu {
+    background-color: rgb(30, 41, 59, 0.35);
+    transition: all 0.3s ease;
     transform: translateY(-10px);
 }
 
-.dropdown-menu.show {
+.avatar-dropmenu.show {
     display: block;
     opacity: 1;
     transform: translateY(0);
 }
 
-.dropdown-menu a {
+.avatar-dropmenu-a {
     display: flex;
     align-items: center;
     text-decoration: none;
@@ -171,24 +137,29 @@ body {
     transition: ease-in-out 0.3s;
 }
 
-.dropdown-menu a i {
-    width: 20px;
-    height: 20px;
+.avatar-dropmenu-a-i {
+    width: 2.7rem;
+    height: 2.7rem;
     display: flex;
     align-items: center;
     justify-content: center;
     background: #00000075;
-    border-radius: 50%;
-    padding: 10px;
+    border-radius: 9999px;
+    padding: 1rem;
+    margin: 0.5rem auto;
     transition: ease-in-out 0.3s;
 }
 
-.dropdown-menu i {
-    width: 30px;
-    height: 30px;
+.avatar-dropmenu-a-i:first-child {
+    margin-top: 0;
+    margin-bottom: 1rem;
 }
 
-.dropdown-menu a i:hover {
+.avatar-dropmenu-a-i:last-child {
+    margin-bottom: 0;
+}
+
+.avatar-dropmenu-a-i:hover {
     box-shadow: 0 4px 30px rgba(255, 255, 255, 0.9);
     transform: scale(1.1);
 }
@@ -203,10 +174,7 @@ body {
 }
 
 .power-by {
-    font-size: 1rem;
-    color: #ffffff;
     font-family: foot-power-by;
-    opacity: 0.7;
 }
 
 .power-by-underline {
@@ -218,15 +186,6 @@ body {
 
 
 .tool-container {
-    position: fixed;
-    bottom: -25px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: rgb(0, 0, 0);
-    z-index: 1;
     transition: all 1s ease-out;
 }
 

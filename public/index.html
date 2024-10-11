@@ -16,28 +16,40 @@
 <body>
     <div id="snowfall"></div>
     <div class="border-lines"></div>
-    <div class="tool-container"></div>
-    <div class="text-container">
-        <div class="text maintext animate__animated animate__fadeIn animate__delay-1s">Tools House</div>
+    <div class="fixed -bottom-24 left-1/2 -translate-x-1/2 w-32 h-32 rounded-full bg-black z-10 tool-container"
+        id="tool-container"></div>
+
+    <div class="absolute z-10 bg-out-container" id="bg-out-container">
+        <div class="absolute top-1/2 left-1/2 background-mid-container"></div>
+    </div>
+    <div class="absolute flex items-center justify-center text-9xl font-bold text-blue-500 z-10 mid-text animate__animated animate__fadeIn animate__delay-1s" id="mid-text">Tools House</div>
+
+    <div class="grid grid-cols-2 gap-2.5 items-center justify-center fixed top-2.5 right-2.5 p-2.5 z-10">
+        <img src="https://cdn-icons-png.flaticon.com/512/4709/4709000.png" alt="Tool" id="toolbtn"
+            class="w-16 h-16 rounded-full cursor-pointer toolbtn">
+        <img src="https://i.imgur.com/wobWhmA.png" alt="Avatar" id="avatar"
+            class="w-16 h-16 rounded-full border-white border-4 border-solid cursor-pointer left-top-avatar">
     </div>
 
-    <div class="top-btn-container">
-        <img src="https://cdn-icons-png.flaticon.com/512/4709/4709000.png" alt="Tool" class="toolbtn">
-        <img src="https://i.imgur.com/wobWhmA.png" alt="Avatar" class="avatar">
+    <div class="hidden absolute w-16 p-1.5 top-2.5 right-2.5 m-2.5 rounded-full border-solid border-4 border-slate-900 opacity-0 avatar-dropmenu"
+        id="avatar-dropmenu">
+        <a href="#" class="avatar-dropmenu-a-i p-4 no-underline text-white"><i
+                class="avatar-dropmenu-a-i w-8 h-8 avatar-dropmenu-i fab fa-blank"></i></a>
+        <a href="#" class="avatar-dropmenu-a-i p-4 no-underline text-white"><i
+                class="avatar-dropmenu-a-i w-8 h-8 avatar-dropmenu-i fab fa-github"></i></a>
+        <a href="#" class="avatar-dropmenu-a-i p-4 no-underline text-white"><i
+                class="avatar-dropmenu-a-i w-8 h-8 avatar-dropmenu-i fab fa-discord"></i></a>
+        <a href="#" class="avatar-dropmenu-a-i p-4 no-underline text-white"><i
+                class="avatar-dropmenu-a-i w-8 h-8 avatar-dropmenu-i fab fa-twitter"></i></a>
+        <a href="#" class="avatar-dropmenu-a-i p-4 no-underline text-white"><i
+                class="avatar-dropmenu-a-i w-8 h-8 avatar-dropmenu-i fab fa-reddit"></i></a>
     </div>
-
-    <div class="dropdown-menu">
-        <a href="#"><i class="fab fa-blank"></i></a>
-        <a href="#"><i class="fab fa-discord"></i></a>
-        <a href="#"><i class="fab fa-github"></i></a>
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-reddit"></i></a>
-    </div>
-    <div class="power-by-container">
-        <div class="power-by">Powered by Dragon</div>
-        <div class="power-by-underline"></div>
+    <div class="flex flex-col items-center absolute bottom-2.5 left-2.5">
+        <div class="text-base text-slate-300 opacity-70 power-by">Powered by Dragon</div>
+        <div class="w-full h-1 bg-slate-300 opacity-70 mt-1"></div>
     </div>
     <script src="./script/snow.js"></script>
+    <div class="p-6 max-w-sm"></div>
 </body>
 
 </html>
