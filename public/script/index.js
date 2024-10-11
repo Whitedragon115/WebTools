@@ -1,36 +1,55 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const avatar = document.querySelector(".avatar");
-    const dropdownMenu = document.querySelector(".dropdown-menu");
-    const tool = document.querySelector(".toolbtn");
-    const expandingCircle = document.querySelector(".tool-container");
+    const avatar = document.getElementById("avatar");
+    const dropdownMenu = document.getElementById("avatar-dropmenu");
+    const tool = document.getElementById("toolbtn")
+    const expandingCircle = document.getElementById("tool-container");
+    const bgOutContainer = document.getElementById("bg-out-container");
+    const bgOutText = document.getElementById("mid-text");
+
+    const expandingCircleClass = expandingCircle.style;
+    const bgOutContainerClass = bgOutContainer.style;
+    const bgOutTextClass = bgOutText.style;
+    const bodyStyle = document.body.style;
+
     let toolToggle = false;
     let hideTimeout;
 
     // Handle tool button click to show expanding circle
     tool.addEventListener("click", () => {
         tool.classList.toggle('active')
+        bgOutText.classList.toggle('active')
+
         if (toolToggle) {
-            expandingCircle.classList.remove("expand");
-            expandingCircle.style.width = "50px";
-            expandingCircle.style.height = "50px";
-            expandingCircle.style.bottom = "0";
-            expandingCircle.style.left = "50%";
-            expandingCircle.style.background = "rgba(0, 0, 0)";
-            expandingCircle.style.transform = "translate(-50%, 50%)";
+            expandingCircle.style = expandingCircleClass
+            bgOutContainer.style = bgOutContainerClass
+            bgOutText.style = bgOutTextClass
+            document.body.style = bodyStyle
             toolToggle = false;
         } else {
-            expandingCircle.classList.add("expand");
             requestAnimationFrame(() => {
-                expandingCircle.style.width = "115vw";
-                expandingCircle.style.height = "115vw";
+                expandingCircle.style.width = "150vw";
+                expandingCircle.style.height = "150vw";
                 expandingCircle.style.bottom = "-55vw";
                 expandingCircle.style.left = "calc(50% - 57.5vw)";
                 expandingCircle.style.background = "rgba(0, 0, 0, 0.5)";
                 expandingCircle.style.transform = "none";
+                bgOutContainer.style.transitionDelay = "1s";
+                bgOutContainer.style.transform = "scale(3)"
+                bgOutContainer.style.translate = "0rem -72rem";
+                document.body.style.backdropFilter = "blur(10px)";
+                document.body.style.transitionDelay = "2s";
+                showToolList();
             });
+
             toolToggle = true;
         }
     });
+
+    function showToolList(){
+
+
+        
+    }
 
     // Handle dropdown visibility
     function showDropdown() {
