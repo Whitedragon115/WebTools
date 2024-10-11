@@ -1,11 +1,17 @@
 const express = require('express');
 const path = require('path');
+const app = express();
+
 require('dotenv').config();
 
 const PORT = process.env.webport;
 
-const {  } = require('./api/tmpfile-v1.0')
+const api = require('./api/api-index.js')
 const web = require('./web/init.js')
 
-web.start(PORT);
+web.start(app);
+api.init(app);
 
+app.listen(PORT, () => {
+    console.log(`[CONSOLE] : Server started successfully on port ${PORT}`);
+});
