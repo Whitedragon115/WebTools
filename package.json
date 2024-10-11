@@ -19,5 +19,8 @@
   },
   "prisma": {
     "schema": "prisma/schema.prisma"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.13"
   }
 }
