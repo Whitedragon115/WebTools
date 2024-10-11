@@ -1,0 +1,16 @@
+@font-face {
+    font-family: 'Pixel-Text';
+    src: url("../font/Cubic_11.ttf");
+}
+
+body {
+    background-color: rgb(28, 28, 28);
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    color: white;
+}
+
+.Main-text{
+    font-family: 'Pixel-Text';
+}
