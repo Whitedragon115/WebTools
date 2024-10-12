@@ -5,7 +5,7 @@ const apiFolderPath = path.join(__dirname, '../api');
 const readfiles = fs.readdirSync(apiFolderPath);
 
 module.exports = {
-    async init(app) {
+    async init(app, client) {
 
         for (const folder of readfiles) {
             const subFolderPath = path.join(apiFolderPath, folder);
@@ -15,7 +15,7 @@ module.exports = {
                 const filePath = path.join(subFolderPath, file);
                 const api = require(filePath);
                 if ('name' in api && 'execute' in api) {
-                    api.execute(app);
+                    api.execute(app, client);
                 } else {
                     console.log(`[warning] The api at ${filePath} is missing a required "name" or "execute" property.`);
                 }
