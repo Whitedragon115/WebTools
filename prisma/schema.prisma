@@ -14,14 +14,15 @@ datasource db {
 }
 
 model FileData {
-  id    Int    @id @default(autoincrement())
+  id    String    @id
   MsgId String
-  Size  Int
+  Size  String
   Name  String
   Type  String
-  Uploader String
+  UploaderId String
   Link String
-  CreatedAt DateTime @default(now())
+  DownloadLink String
+  CreatedAt String   
 }
 
 model User {
