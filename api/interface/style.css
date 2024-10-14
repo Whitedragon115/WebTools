@@ -1,14 +1,11 @@
 @font-face {
     font-family: 'Pixel-Text';
-    src: url("../../public//font//Cubic_11.ttf");
+    src: url("../../public/font/XiaolaiSC-Regular.ttf");
 }
 
 body {
-    background-image:
-        linear-gradient(-45deg, rgba(132, 0, 255, 0.5), rgba(0, 89, 255, 0.5)),
-        /* 這裡是漸層 */
+    background-image: linear-gradient(-45deg, rgba(132, 0, 255, 0.5), rgba(0, 89, 255, 0.5)),
         url('https://i.imgur.com/SBE1iqA.png');
-    /* 背景圖片 */
     background-size: cover;
     height: 100vh;
     display: flex;
@@ -18,7 +15,7 @@ body {
     font-family: Arial, sans-serif;
     overflow: hidden;
     transition: all 1s ease-in-out;
-    backdrop-filter: blur(2px);
+    backdrop-filter: blur(1px);
 }
 
 
@@ -55,6 +52,36 @@ body {
 .box-cplink:hover {
     transform: scale(1.05);
     box-shadow: 0 0 15px 2px #bfdbfe;
+}
+
+.box-btn {
+    font-size: clamp(1rem, 5vw, 2rem);
+}
+
+.box-date {
+    font-size: clamp(1rem, 5vw, 2rem);
+}
+
+.box-info {
+    font-size: clamp(1rem, 5vw, 2rem);
+}
+
+.box-image {
+    transition: all 1s;
+}
+
+.box-image:hover {
+    transform: scale(1.05);
+    border-radius: 5px;
+    box-shadow: 0 0 30px 5px #a8a8a8;
+}
+
+.box-zoom-img{
+    transition: all 2s ease-in-out;
+}
+
+.main-box-zoom-img{
+    transition: all 2s ease-in-out;
 }
 
 .animation-spin {
