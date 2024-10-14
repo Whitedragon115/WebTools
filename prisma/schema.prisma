@@ -14,22 +14,20 @@ datasource db {
 }
 
 model FileData {
-  id    String    @id
-  MsgId String
-  Size  String
-  Name  String
-  Type  String
-  UploaderId String
-  Link String
-  DownloadLink String
-  CreatedAt String   
+  FileId       String @id
+  FileName     String
+  FileType     String
+  FileSize     String
+  FileLink     Json
+  UploaderName String
+  UploaderID   String
+  CreateAt     String
+  Other        Json
 }
 
 model User {
-  id       Int      @id @default(autoincrement())
-  DCID String
-  username String
-  RegisterAt DateTime @default(now())
+  DiscordId     String   @id
+  DiscordName   String
+  DiscordAvatar String
+  RegisterAt    DateTime @default(now())
 }
-
-
