@@ -15,9 +15,9 @@ module.exports = {
             const id = req.params.id;
 
             try {
-                const image = await client.prisma.FileData.findUnique({ where: { id: id } });
+                const image = await client.prisma.FileData.findUnique({ where: { FileId: id } });
                 if (!image) return res.redirect('/404');
-
+                const imageowner = await client.prisma.User.findUnique({ where: { DiscordId: image.UploaderID } });
 
                 const test = {
                     "message": "success",
@@ -36,18 +36,22 @@ module.exports = {
 
                 const filePath = path.join(__dirname, '../interface/', 'ViewOnline.html');
                 let html = fs.readFileSync(filePath, 'utf-8');
-
                 html = html
-                    .replace("{IMAGELINK}", image.Link)
-                    .replace("{FILENAME}", image.Name)
-                    .replace("{FILETYPE}", image.Type)
-                    .replace("{FILESIZE}", image.Size)
-                    .replace("{UPLOADTIME}", image.CreatedAt)
+                    .replace("{FILELINK}", image.FileLink.RawLink)
+                    .replace("{FILENAME}", image.FileName)
+                    .replace("{FILETYPE}", image.FileType)
+                    .replace("{FILESIZE}", image.FileSize)
+                    .replace("{UPLOADTIME}", image.CreateAt)
                     .replace("{UPLOADER}", image.UploaderName)
-                    .replace("{FILEID}", image.id)
-                    .replace("{IMAGELINK}", image.link)
-                    .replace("{AVATAR}", "avatar placeholder")
-                    .replace("{VIEW}", "view placeholder")
+                    .replace("{FILEID}", image.FileId)
+                    .replace("{AVATAR}", imageowner.DiscordAvatar)
+                    .replace("{VIEW}", "3920")
+
+                if (image.Other.FullTypeName.startsWith("image")) {
+                    html = html.replace("{FILELINK}", image.FileLink.RawLink)
+                } else {
+                    html = html.replace("{FILELINK}", "https://placehold.co/600x400?text=This+is+not+a+image+file")
+                }
 
                 res.status(200).send(html);
 
