@@ -9,7 +9,7 @@ module.exports = {
 
         for (const folder of readfiles) {
             const subFolderPath = path.join(apiFolderPath, folder);
-            if (!fs.lstatSync(subFolderPath).isDirectory()) continue;
+            if (!fs.lstatSync(subFolderPath).isDirectory() || folder == "interface") continue;
             const apiFile = fs.readdirSync(subFolderPath).filter(file => file.endsWith('.js'));
             for (const file of apiFile) {
                 const filePath = path.join(subFolderPath, file);
