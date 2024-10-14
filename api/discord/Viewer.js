@@ -18,17 +18,38 @@ module.exports = {
                 const image = await client.prisma.FileData.findUnique({ where: { id: id } });
                 if (!image) return res.redirect('/404');
 
-                const filePath = path.join(__dirname, '/api/interface/', 'ViewOnline.html');
-                console.log(filePath)
 
+                const test = {
+                    "message": "success",
+                    "image": {
+                        "id": "CCS-HDG-KEZ-IXO",
+                        "MsgId": "123456789",
+                        "Size": "1.46 MB",
+                        "Name": "whitedragon_NI-CI..._CCS-HDG-KEZ-IXO.pptx",
+                        "Type": "vnd.openxmlformats-officedocument.presentationml.presentation",
+                        "UploaderId": "123456789",
+                        "Link": "https://tool.whitedragon.life/file/CCS-HDG-KEZ-IXO",
+                        "DownloadLink": "https://tool.whitedragon.life/file/CCS-HDG-KEZ-IXO/download",
+                        "CreatedAt": "2024-10-13-15-3"
+                    }
+                }
+
+                const filePath = path.join(__dirname, '../interface/', 'ViewOnline.html');
                 let html = fs.readFileSync(filePath, 'utf-8');
 
+                html = html
+                    .replace("{IMAGELINK}", image.Link)
+                    .replace("{FILENAME}", image.Name)
+                    .replace("{FILETYPE}", image.Type)
+                    .replace("{FILESIZE}", image.Size)
+                    .replace("{UPLOADTIME}", image.CreatedAt)
+                    .replace("{UPLOADER}", image.UploaderName)
+                    .replace("{FILEID}", image.id)
+                    .replace("{IMAGELINK}", image.link)
+                    .replace("{AVATAR}", "avatar placeholder")
+                    .replace("{VIEW}", "view placeholder")
 
-                res.status(200).json({ message: 'success', image });
-
-
-
-
+                res.status(200).send(html);
 
             } catch (error) {
                 // 處理查詢時的錯誤
