@@ -23,7 +23,7 @@ async function checkAndSyncDatabase() {
 
         console.log('[CONSOLE] : Checking database structure...');
         // 2. 使用 `prisma db push` 同步 Prisma 模式和 MySQL 數據庫
-        exec('npx prisma db push', (error, stdout, stderr) => {
+        exec('npx prisma db push --accept-data-loss', (error, stdout, stderr) => {
             if (error) {
                 console.error(`[ERROR] : Prisma db push failed: ${error.message}`);
                 return;

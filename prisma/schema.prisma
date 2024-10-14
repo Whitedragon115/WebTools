@@ -26,8 +26,9 @@ model FileData {
 }
 
 model User {
-  DiscordId     String   @id
+  DiscordId     String   @unique
   DiscordName   String
-  DiscordAvatar String
+  DiscordAvatar String   @default("https://cdn.discordapp.com/embed/avatars/0.png")
+  UserToken     String   @id //Not Discord Token
   RegisterAt    DateTime @default(now())
 }

@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
         ZoomImg.style.width = "200vw";
         ZoomImg.style.height = "200vw";
         ZoomImg.style.opacity = "1";
-        MainZoomImg.style.transitionDelay = "0.7s";
+        MainZoomImg.style.transitionDelay = "0.3s";
         MainZoomImg.style.opacity = "1";
 
         setTimeout(() => {
@@ -39,9 +39,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (event.target.id != 'Zoom-Img-Box' && imgOpenToggle) {
 
-            MainContainer.style = orginalCss.maincontainer;
-            ZoomImg.style = orginalCss.zoomimg;
-            MainZoomImg.style = orginalCss.mainzoomimg;
+            requestAnimationFrame(() => {
+                MainContainer.style = orginalCss.maincontainer;
+                ZoomImg.style = orginalCss.zoomimg;
+                MainZoomImg.style = orginalCss.mainzoomimg;
+            });
 
             imgOpenToggle = false;
 
