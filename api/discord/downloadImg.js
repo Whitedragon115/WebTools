@@ -9,7 +9,7 @@ module.exports = {
 
     async execute(app, client) {
 
-        app.get('/file/:fileId/download', async (req, res) => {
+        app.get('/cdn/:fileId/download', async (req, res) => {
 
             const fileId = req.params.fileId;
             const fileData = await client.prisma.FileData.findUnique({ where: { FileId: fileId } });

@@ -6,16 +6,16 @@ const { nowTime } = require('../../function/Time.js');
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        const json = JSON.parse(req.headers.json) ?? { userId: 'UNKNOW' };
+        const json = JSON.parse(req.headers.json) ?? { userName: 'UNKNOW', userId: 'UNKNOW' };
         cb(null, `Storage/${json.userId}`);
     },
     filename: (req, file, cb) => {
-        const json = JSON.parse(req.headers.json) ?? { userId: 'UNKNOW' };
+        const json = JSON.parse(req.headers.json) ?? { userName: 'UNKNOW', userId: 'UNKNOW' };
 
         const formateName = file.originalname.split('.').slice(0, -1).join('').replace(/_|\s/g, '-');
         const shortName = formateName.length > 5 ? formateName.slice(0, 5) + "..." : formateName;
 
-        const Filename = `${json.userId}_${shortName}_${Random_File(3, 4)}.${file.originalname.split('.').pop()}`;
+        const Filename = `${json.userName}_${shortName}_${Random_File(3, 4)}.${file.originalname.split('.').pop()}`;
         cb(null, Filename);
     }
 })
@@ -58,9 +58,9 @@ module.exports = {
                     size: file.size,
                     formatSize: fileSize(file.size),
                     link: {
-                        viewLink: "http://localhost:4002" + '/cdn/' + fileId,
-                        rawLink: "http://localhost:4002" + '/file/' + fileId,
-                        downloadLink: "http://localhost:4002" + '/file/' + fileId + '/download'
+                        viewLink: "http://localhost:4002" + '/file/' + fileId,
+                        rawLink: "http://localhost:4002" + '/cdn/' + fileId,
+                        downloadLink: "http://localhost:4002" + '/cdn/' + fileId + '/download'
                         // viewLink: process.env.webdomain + '/image/' + fileId,
                         // rawLink: process.env.webdomain + '/file/' + fileId,
                         // downloadLink: process.env.webdomain + '/file/' + fileId + '/download'

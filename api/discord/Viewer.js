@@ -11,7 +11,7 @@ module.exports = {
 
     async execute(app, client) {
 
-        app.get('/cdn/:id', async (req, res) => {
+        app.get('/file/:id', async (req, res) => {
             const id = req.params.id;
 
             try {
