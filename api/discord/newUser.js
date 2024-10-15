@@ -1,4 +1,6 @@
 const express = require('express');
+const path = require('path');
+const fs = require('fs');
 const { Token } = require('../../function/Token.js')
 
 module.exports = {
@@ -27,14 +29,16 @@ module.exports = {
 
             const NewUserToken = Token();
 
-            const User = await client.prisma.User.create({
-                data: {
-                    DiscordId: NewUserData.discordId,
-                    DiscordName: NewUserData.discordName,
-                    DiscordAvatar: NewUserData.avatarLink,
-                    UserToken: NewUserToken,
-                }
-            });
+            const Storage = path.join(__dirname, '/storage/', NewUserData.discordId);
+
+            // const User = await client.prisma.User.create({
+            //     data: {
+            //         DiscordId: NewUserData.discordId,
+            //         DiscordName: NewUserData.discordName,
+            //         DiscordAvatar: NewUserData.avatarLink,
+            //         UserToken: NewUserToken,
+            //     }
+            // });
 
             const resData = {
                 "message": "success",
