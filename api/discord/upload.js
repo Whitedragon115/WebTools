@@ -64,12 +64,12 @@ module.exports = {
                     size: file.size,
                     formatSize: fileSize(file.size),
                     link: {
-                        viewLink: "http://localhost:4002" + '/file/' + fileId,
-                        rawLink: "http://localhost:4002" + '/cdn/' + fileId,
-                        downloadLink: "http://localhost:4002" + '/cdn/' + fileId + '/download'
-                        // viewLink: process.env.webdomain + '/image/' + fileId,
-                        // rawLink: process.env.webdomain + '/file/' + fileId,
-                        // downloadLink: process.env.webdomain + '/file/' + fileId + '/download'
+                        // viewLink: "http://localhost:4002" + '/file/' + fileId,
+                        // rawLink: "http://localhost:4002" + '/cdn/' + fileId,
+                        // downloadLink: "http://localhost:4002" + '/cdn/' + fileId + '/download'
+                        viewLink: process.env.webdomain + '/file/' + fileId,
+                        rawLink: process.env.webdomain + '/cdn/' + fileId,
+                        downloadLink: process.env.webdomain + '/cdn/' + fileId + '/download'
                     },
                     other: {
                         originalName: file.originalname,
