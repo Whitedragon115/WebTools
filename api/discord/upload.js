@@ -39,6 +39,8 @@ module.exports = {
             if (!req.headers['authorization']) return res.status(401).json({ message: 'No authorization header', error: true });
             const findToken = await client.prisma.User.findUnique({ where: { UserToken: req.headers['authorization'].split(' ')[1] } });
             if (!findToken) return res.status(401).json({ message: 'Invalid token', error: true });
+            const UserCorrect = findToken.DiscordId == JSON.parse(req.headers.json).userId;
+            if (!UserCorrect) return res.status(401).json({ message: 'Invalid token, user incorrect', error: true });
             if (!req.headers['content-type'].includes('multipart/form-data')) return res.status(400).json({ message: 'wrong content type', error: true });
 
             next();
