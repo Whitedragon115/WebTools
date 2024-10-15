@@ -7,7 +7,7 @@ function nowTime() {
     const hours = currentDate.getHours();
     const minutes = currentDate.getMinutes();
 
-    return `${year}-${month}-${day}-${hours}-${minutes}`;
+    return `${year}/${month}/${day} ${hours}:${minutes}`;
 }
 
 module.exports = {

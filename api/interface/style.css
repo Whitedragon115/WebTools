@@ -18,7 +18,7 @@ body {
     backdrop-filter: blur(1px);
 }
 
-.MainContainer{
+.MainContainer {
     transition: all 1s ease-in-out;
 }
 
@@ -66,7 +66,30 @@ body {
 }
 
 .box-info {
-    font-size: clamp(1rem, 5vw, 2rem);
+    overflow: hidden;
+    border-radius: 1.5rem;
+    direction: rtl;
+}
+
+.box-info::-webkit-scrollbar {
+    width: 15px;
+}
+
+.box-info::-webkit-scrollbar-track {
+    background: #727272;
+    border-radius: 1.5rem;
+    /* 保證軌道圓角 */
+}
+
+.box-info::-webkit-scrollbar-thumb {
+    background-color: #cefdff;
+    border-radius: 1.5rem;
+    /* 保證滾輪圓角 */
+    border: 2px solid #717171;
+}
+
+.box-info::-webkit-scrollbar-thumb:hover {
+    background: #98f1ff;
 }
 
 .box-image {
@@ -79,11 +102,11 @@ body {
     box-shadow: 0 0 30px 5px #a8a8a8;
 }
 
-.box-zoom-img{
+.box-zoom-img {
     transition: all 1.5s ease-in-out;
 }
 
-.main-box-zoom-img{
+.main-box-zoom-img {
     transition: all 0.5s ease-in-out;
 }
 

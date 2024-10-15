@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const CopyPageLink = document.getElementById("cpweblink");
     const CopyImgLink = document.getElementById("cplink");
     const CopyImageData = document.getElementById("cpimg");
+    const DownloadFile = document.getElementById("dlimg");
 
     let imgOpenToggle = false;
 
@@ -51,24 +52,69 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     CopyPageLink.addEventListener('click', () => {
+        SuccessExecuted();
         const weblink = window.location.href;
         navigator.clipboard.writeText(weblink);
     });
 
     CopyImgLink.addEventListener('click', () => {
+        SuccessExecuted();
         const imglink = MainZoomImg.src;
         navigator.clipboard.writeText(imglink);
     });
 
+    DownloadFile.addEventListener('click', () => {
+        SuccessExecuted();
+        const imglink = MainZoomImg.src + '/download';
+        window.open(imglink);
+    });
+
     CopyImageData.addEventListener('click', async () => {
 
-        const imgLink = MainZoomImg.src;
-        const response = await fetch(imgLink);
-        const blob = await response.blob();
+        const img = MainZoomImg;
+        const canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        canvas.getContext("2d").drawImage(img, 0, 0, img.width, img.height);
+        canvas.toBlob((blob) => {
+            navigator.clipboard.write([
+                new ClipboardItem({ "image/png": blob })
+            ]);
+        }, "image/png");
 
-        const item = new ClipboardItem({ 'image/png': blob });
-        await navigator.clipboard.write([item]);
-
+        SuccessExecuted();
     });
+
+    function SuccessExecuted() {
+        const success = document.createElement("div");
+
+        success.style.position = "fixed";
+        success.style.bottom = "1%";
+        success.style.left = "50%";
+        success.style.padding = "10px 20px";
+        success.style.backgroundColor = "rgba(186 243 238 / 0.8)";
+        success.style.color = "white";
+        success.style.borderRadius = "10px";
+        success.style.transform = "translate(-50%, -10%)";
+        success.style.opacity = "0";
+        success.style.transition = "opacity 0.5s, transform 0.5s";
+        success.style.zIndex = "999";
+        success.innerHTML = "Success!";
+        document.body.appendChild(success);
+
+        setTimeout(() => {
+            success.style.opacity = "1";
+            success.style.transform = "translate(-50%, -40%)";
+        }, 100);
+
+        setTimeout(() => {
+            success.style.opacity = "0";
+            success.style.transform = "translate(-50%, -50%)";
+        }, 2000);
+
+        setTimeout(() => {
+            success.remove();
+        }, 2500);
+    }
 
 });
