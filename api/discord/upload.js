@@ -56,7 +56,7 @@ module.exports = {
                     size: file.size,
                     formatSize: fileSize(file.size),
                     link: {
-                        viewLink: "http://localhost:4002" + '/image/' + fileId,
+                        viewLink: "http://localhost:4002" + '/cdn/' + fileId,
                         rawLink: "http://localhost:4002" + '/file/' + fileId,
                         downloadLink: "http://localhost:4002" + '/file/' + fileId + '/download'
                         // viewLink: process.env.webdomain + '/image/' + fileId,

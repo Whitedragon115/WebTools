@@ -68,7 +68,6 @@ body {
 .box-info {
     overflow: hidden;
     border-radius: 1.5rem;
-    direction: rtl;
 }
 
 .box-info::-webkit-scrollbar {
@@ -90,6 +89,15 @@ body {
 
 .box-info::-webkit-scrollbar-thumb:hover {
     background: #98f1ff;
+}
+
+.box-image-close {
+    transition: all 0.5s;
+}
+
+.box-image-close:hover {
+    transform: scale(1.05) rotate(180deg);
+    box-shadow: 0 0 30px 5px #a8a8a8;
 }
 
 .box-image {

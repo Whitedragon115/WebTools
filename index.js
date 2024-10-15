@@ -53,7 +53,11 @@ function startServer() {
 }
 
 // 程序啟動時進行數據庫檢查和同步
-checkAndSyncDatabase();
+if(process.env.bypassDatabaseCheck != 'true') {
+    checkAndSyncDatabase();
+} else {
+    startServer();
+}
 
 process.on('SIGINT', async () => {
     await client.prisma.$disconnect();

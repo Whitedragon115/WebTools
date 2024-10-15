@@ -20,6 +20,9 @@
             class="main-box-zoom-img opacity-0 w-[80vw] h-auto max-w-none max-h-[80vh] rounded-xl object-contain"
             src="{FILELINK}">
     </div>
+    <div id="Zoom-Img-close" class="box-image-close opacity-0 absolute top-5 right-5 w-10 h-10 bg-[#88aeff9e] text-blue-300 rounded-full flex items-center justify-center z-20">
+        <i class="fas fa-close text-3xl"></i>
+    </div>
     <div id="MainContainer"
         class="MainContainer bg-[#E1FDFF99] rounded-3xl p-6 box-shadow w-[70vw] h-[80vh] flex flex-col justify-between">
         <!-- Upper part with two columns -->
@@ -28,30 +31,30 @@
                 <div
                     class="bg-[#E1FDFF99] rounded-3xl h-3/4 border-[6px] border-solid border-gray-500 p-4 overflow-auto box-info">
                     <div
-                        class="grid text-center text-2xl font-bit break-words m-1 items-center justify-between">
+                        class="grid text-center text-2xl font-bit break-words m-1 items-center justify-center">
                         <div class="grid grid-cols-2 gap-4 items-baseline">
+                            <div class="text-slate-700 text-left text-[2.5vh]">File Name</div>
                             <div class="text-slate-700 text-left text-[2vh]">{FILENAME}</div>
-                            <div class="text-slate-700 text-left text-[2.5vh]">:File Name</div>
                         </div>
                         <div class="grid grid-cols-2 gap-4 items-baseline">
+                            <div class="text-slate-700 text-left text-[2.5vh]">File Type</div>
                             <div class="text-slate-700 text-left text-[2vh]">{FILETYPE}</div>
-                            <div class="text-slate-700 text-left text-[2.5vh]">:File Type</div>
                         </div>
                         <div class="grid grid-cols-2 gap-4 items-baseline">
+                            <div class="text-slate-700 text-left text-[2.5vh]">File Size</div>
                             <div class="text-slate-700 text-left text-[2vh]">{FILESIZE}</div>
-                            <div class="text-slate-700 text-left text-[2.5vh]">:File Size</div>
                         </div>
                         <div class="grid grid-cols-2 gap-4 items-baseline">
+                            <div class="text-slate-700 text-left text-[2.5vh]">Uploader</div>
                             <div class="text-slate-700 text-left text-[2vh]">{UPLOADER}</div>
-                            <div class="text-slate-700 text-left text-[2.5vh]">:Uploader</div>
                         </div>
                         <div class="grid grid-cols-2 gap-4 items-baseline">
+                            <div class="text-slate-700 text-left text-[2.5vh]">File Id</div>
                             <div class="text-slate-700 text-left text-[1.3vh]">{FILEID}</div>
-                            <div class="text-slate-700 text-left text-[2.5vh]">:File Id</div>
                         </div>
                         <div class="grid grid-cols-2 gap-4 items-baseline">
+                            <div class="text-slate-700 text-left text-[2.5vh]">View</div>
                             <div class="text-slate-700 text-left text-[2vh]">{VIEW}</div>
-                            <div class="text-slate-700 text-left text-[2.5vh]">:View</div>
                         </div>
                     </div>
                 </div>
@@ -72,6 +75,10 @@
                 src="{AVATAR}">
 
             <div class="flex flex-row justify-between h-full w-full">
+                <div id="opimg"
+                    class="box-cpimg flex-grow bg-gray-200 rounded-full h-full mx-2 w-fit border-[6px] border-solid border-[#ffffff] flex items-center justify-center cursor-pointer">
+                    <span class="text-center box-btn text-slate-700 font-bit">Open</span>
+                </div>
                 <div id="cpimg"
                     class="box-cpimg flex-grow bg-gray-200 rounded-full h-full mx-2 w-fit border-[6px] border-solid border-[#ffffff] flex items-center justify-center cursor-pointer">
                     <span class="text-center box-btn text-slate-700 font-bit">Copy File</span>

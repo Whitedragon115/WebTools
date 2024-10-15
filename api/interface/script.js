@@ -3,11 +3,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const MainContainer = document.getElementById("MainContainer");
     const ZoomImg = document.getElementById("Zoom-Img");
     const MainZoomImg = document.getElementById("Zoom-Img-Box");
+    const ZoomImgClose = document.getElementById("Zoom-Img-close");
 
     const CopyPageLink = document.getElementById("cpweblink");
     const CopyImgLink = document.getElementById("cplink");
     const CopyImageData = document.getElementById("cpimg");
     const DownloadFile = document.getElementById("dlimg");
+    const OpenFile = document.getElementById("opimg");
 
     let imgOpenToggle = false;
 
@@ -15,7 +17,8 @@ document.addEventListener("DOMContentLoaded", function () {
         imgbox: ImgBox.style,
         maincontainer: MainContainer.style,
         zoomimg: ZoomImg.style,
-        mainzoomimg: MainZoomImg.style
+        mainzoomimg: MainZoomImg.style,
+        zoomimgclose: ZoomImgClose.style
     }
 
     ImgBox.addEventListener('click', () => {
@@ -29,6 +32,8 @@ document.addEventListener("DOMContentLoaded", function () {
         ZoomImg.style.opacity = "1";
         MainZoomImg.style.transitionDelay = "0.3s";
         MainZoomImg.style.opacity = "1";
+        ZoomImgClose.style.opacity = "1";
+
 
         setTimeout(() => {
             imgOpenToggle = true;
@@ -36,14 +41,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
     });
 
-    document.addEventListener('click', (event) => {
+    ZoomImgClose.addEventListener('click', (event) => {
 
-        if (event.target.id != 'Zoom-Img-Box' && imgOpenToggle) {
+        if (imgOpenToggle) {
 
             requestAnimationFrame(() => {
                 MainContainer.style = orginalCss.maincontainer;
                 ZoomImg.style = orginalCss.zoomimg;
                 MainZoomImg.style = orginalCss.mainzoomimg;
+                ZoomImgClose.style = orginalCss.zoomimgclose;
             });
 
             imgOpenToggle = false;
@@ -66,6 +72,12 @@ document.addEventListener("DOMContentLoaded", function () {
     DownloadFile.addEventListener('click', () => {
         SuccessExecuted();
         const imglink = MainZoomImg.src + '/download';
+        window.open(imglink);
+    });
+
+    OpenFile.addEventListener('click', () => {
+        SuccessExecuted();
+        const imglink = MainZoomImg.src;
         window.open(imglink);
     });
 
