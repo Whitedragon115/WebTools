@@ -14,7 +14,7 @@ module.exports = {
 
         app.post('/api/discord/v1/createUser', async (req, res) => {
 
-            const VerifyToken = "WQmbkfXfBAPvdQWgkcVlSRdMIKFiqhVjTDdMWPIQgfHBWcTPeZROqreDdYJXJBSUtYPjUsRMLIZcSWMgTiKfjiAgaEmPoSRfeTjHscrerFDBAFvJETJCvPGKzQppLvvhjkWWHgelGXQQzqfOHCzUDHEDGMeXOwURDhszuwxRaqJwWdxistrFJucTxqCjKcFgxITKsoodvPMgZyWBrYzgIvpbYSfbQKQhuUqTrSqbACcKForyYuOYYMFmxRDmqLvrXbgPDUpSpTTyWRZcokQLMtptgPbODvlKArKOukEHCqrvzhHKuvkYDaiCxuPwigiHgPbASCWTQZMMBTtEwRQGTCpehmlcJwmIACIxKZkcladyVRgfMdisvrpBDZgCwYJAIIMiiTaeDKFVPedHMkQqzdysfYMLJVsEEOtfPOEasUYUoAeYztuITWwmOCSElJRDFdIRwWuwXXKGHsKaXKJLEDwppkQMsoCesrxPLHpYRTCjfLsuFAJwGMSVXPLMhqxc"
+            const VerifyToken = process.env.API_TOKEN;
 
             if (!req.headers['authorization']) return res.status(401).json({ message: 'No authorization header', error: true });
             if (req.headers['authorization'] !== `Bearer ${VerifyToken}`) return res.status(401).json({ message: 'Invalid token', error: true });
