@@ -1,5 +1,7 @@
 const express = require('express');
 const multer = require('multer');
+const fs = require('fs');
+const path = require('path');
 const { Random_File } = require('../../function/Random');
 const { fileSize } = require('../../function/Format.js');
 const { nowTime } = require('../../function/Time.js');
@@ -47,8 +49,12 @@ module.exports = {
         }, upload.any(), async (req, res) => {
 
             const jsonData = JSON.parse(req.headers.json)
+            const userDataJson = fs.readFileSync(path.join(__dirname, '../../storage/', jsonData.userId, 'user.json'), 'utf-8');
+            const userData = JSON.parse(userDataJson);
+            
             const fileInfo = req.files.map(file => {
 
+                userData.StorageUsed += file.size;
                 const fileId = file.filename.split('_')[2].split('.')[0]
                 const resData = {
                     fileId: fileId,
@@ -76,7 +82,9 @@ module.exports = {
             });
 
             for (let i = 0; i < fileInfo.length; i++) {
+
                 const resData = fileInfo[i];
+                userData.FileView.push({ FileId: resData.fileId, ViewCount: 0, DownloadConut: 0 });
 
                 await client.prisma.FileData.create({
                     data: {
@@ -103,6 +111,8 @@ module.exports = {
             }
 
             res.json({ message: 'Upload success', error: false, info: fileInfo });
+            userData.UploadCount += fileInfo.length
+            fs.writeFileSync(path.join(__dirname, '../../storage/', jsonData.userId, 'user.json'), JSON.stringify(userData, null, 2));
 
         });
     }

@@ -18,21 +18,9 @@ module.exports = {
                 const image = await client.prisma.FileData.findUnique({ where: { FileId: id } });
                 if (!image) return res.redirect('/404');
                 const imageowner = await client.prisma.User.findUnique({ where: { DiscordId: image.UploaderID } });
-
-                const test = {
-                    "message": "success",
-                    "image": {
-                        "id": "CCS-HDG-KEZ-IXO",
-                        "MsgId": "123456789",
-                        "Size": "1.46 MB",
-                        "Name": "whitedragon_NI-CI..._CCS-HDG-KEZ-IXO.pptx",
-                        "Type": "vnd.openxmlformats-officedocument.presentationml.presentation",
-                        "UploaderId": "123456789",
-                        "Link": "https://tool.whitedragon.life/file/CCS-HDG-KEZ-IXO",
-                        "DownloadLink": "https://tool.whitedragon.life/file/CCS-HDG-KEZ-IXO/download",
-                        "CreatedAt": "2024-10-13-15-3"
-                    }
-                }
+                
+                const userDataJson = fs.readFileSync(path.join(__dirname, '../../storage/', image.UploaderID, 'user.json'), 'utf-8');
+                const userData = JSON.parse(userDataJson);
 
                 const filePath = path.join(__dirname, '../interface/', 'ViewOnline.html');
                 let html = fs.readFileSync(filePath, 'utf-8');
@@ -45,7 +33,7 @@ module.exports = {
                     .replace("{UPLOADER}", image.UploaderName)
                     .replace("{FILEID}", image.FileId)
                     .replace("{AVATAR}", imageowner.DiscordAvatar)
-                    .replace("{VIEW}", "3920")
+                    .replace("{VIEW}", userData.FileView.find(arr => arr.FileId === id).ViewCount + 1)
 
                 if (image.Other.FullTypeName.startsWith("image")) {
                     html = html.replace("{FILELINK}", image.FileLink.RawLink)
@@ -53,7 +41,12 @@ module.exports = {
                     html = html.replace("{FILELINK}", "https://placehold.co/600x400?text=This+is+not+a+image+file")
                 }
 
+                userData.ViewCount += 1;
+                userData.FileView.find(arr => arr.FileId === id).ViewCount += 1;
+
                 res.status(200).send(html);
+
+                fs.writeFileSync(path.join(__dirname, '../../storage/', image.UploaderID, 'user.json'), JSON.stringify(userData, null, 2));
 
             } catch (error) {
                 // 處理查詢時的錯誤

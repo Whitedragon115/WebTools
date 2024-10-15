@@ -13,7 +13,7 @@ module.exports = {
         app.use(express.json());
 
         app.post('/api/discord/v1/createUser', async (req, res) => {
-            
+
             const VerifyToken = "WQmbkfXfBAPvdQWgkcVlSRdMIKFiqhVjTDdMWPIQgfHBWcTPeZROqreDdYJXJBSUtYPjUsRMLIZcSWMgTiKfjiAgaEmPoSRfeTjHscrerFDBAFvJETJCvPGKzQppLvvhjkWWHgelGXQQzqfOHCzUDHEDGMeXOwURDhszuwxRaqJwWdxistrFJucTxqCjKcFgxITKsoodvPMgZyWBrYzgIvpbYSfbQKQhuUqTrSqbACcKForyYuOYYMFmxRDmqLvrXbgPDUpSpTTyWRZcokQLMtptgPbODvlKArKOukEHCqrvzhHKuvkYDaiCxuPwigiHgPbASCWTQZMMBTtEwRQGTCpehmlcJwmIACIxKZkcladyVRgfMdisvrpBDZgCwYJAIIMiiTaeDKFVPedHMkQqzdysfYMLJVsEEOtfPOEasUYUoAeYztuITWwmOCSElJRDFdIRwWuwXXKGHsKaXKJLEDwppkQMsoCesrxPLHpYRTCjfLsuFAJwGMSVXPLMhqxc"
 
             if (!req.headers['authorization']) return res.status(401).json({ message: 'No authorization header', error: true });
@@ -28,15 +28,25 @@ module.exports = {
 
             const checkingData = await client.prisma.User.findUnique({ where: { DiscordId: req.body.discordId } });
             const Storage = path.join(__dirname, '../../storage/', NewUserData.discordId);
-            
+
             if (checkingData) return res.status(400).json({ message: 'User already exists', error: true });
             if (fs.existsSync(Storage)) return res.status(400).json({ message: 'User already has storage database', error: true });
-            
+
             fs.mkdirSync(Storage, { recursive: true });
+
+            const jsonData = {
+                "DownloadCount": 0,
+                "viewCount": 0,
+                "UploadCount": 0,
+                "StorageUsed": 0,
+                "FileView": []
+            }
+
+            fs.writeFileSync(path.join(Storage, 'user.json'), JSON.stringify(jsonData, null, 2));
 
             const NewUserToken = Token();
 
-            const User = await client.prisma.User.create({
+            await client.prisma.User.create({
                 data: {
                     DiscordId: NewUserData.discordId,
                     DiscordName: NewUserData.discordName,
