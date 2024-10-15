@@ -9,7 +9,7 @@ const { nowTime } = require('../../function/Time.js');
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         const json = JSON.parse(req.headers.json) ?? { userName: 'UNKNOW', userId: 'UNKNOW' };
-        cb(null, `Storage/${json.userId}`);
+        cb(null, `storage/${json.userId}`);
     },
     filename: (req, file, cb) => {
         const json = JSON.parse(req.headers.json) ?? { userName: 'UNKNOW', userId: 'UNKNOW' };
