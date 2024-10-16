@@ -1,21 +1,23 @@
 const express = require('express');
 const multer = require('multer');
+const fs = require('fs');
+const path = require('path');
 const { Random_File } = require('../../function/Random');
 const { fileSize } = require('../../function/Format.js');
 const { nowTime } = require('../../function/Time.js');
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        const json = JSON.parse(req.headers.json) ?? { userId: 'UNKNOW' };
-        cb(null, `Storage/${json.userId}`);
+        const json = JSON.parse(req.headers.json) ?? { userName: 'UNKNOW', userId: 'UNKNOW' };
+        cb(null, `storage/${json.userId}`);
     },
     filename: (req, file, cb) => {
-        const json = JSON.parse(req.headers.json) ?? { userId: 'UNKNOW' };
+        const json = JSON.parse(req.headers.json) ?? { userName: 'UNKNOW', userId: 'UNKNOW' };
 
         const formateName = file.originalname.split('.').slice(0, -1).join('').replace(/_|\s/g, '-');
         const shortName = formateName.length > 5 ? formateName.slice(0, 5) + "..." : formateName;
 
-        const Filename = `${json.userId}_${shortName}_${Random_File(3, 4)}.${file.originalname.split('.').pop()}`;
+        const Filename = `${json.userName}_${shortName}_${Random_File(3, 4)}.${file.originalname.split('.').pop()}`;
         cb(null, Filename);
     }
 })
@@ -39,14 +41,20 @@ module.exports = {
             if (!req.headers['authorization']) return res.status(401).json({ message: 'No authorization header', error: true });
             const findToken = await client.prisma.User.findUnique({ where: { UserToken: req.headers['authorization'].split(' ')[1] } });
             if (!findToken) return res.status(401).json({ message: 'Invalid token', error: true });
+            const UserCorrect = findToken.DiscordId == JSON.parse(req.headers.json).userId;
+            if (!UserCorrect) return res.status(401).json({ message: 'Invalid token, user incorrect', error: true });
             if (!req.headers['content-type'].includes('multipart/form-data')) return res.status(400).json({ message: 'wrong content type', error: true });
 
             next();
         }, upload.any(), async (req, res) => {
 
             const jsonData = JSON.parse(req.headers.json)
+            const userDataJson = fs.readFileSync(path.join(__dirname, '../../storage/', jsonData.userId, 'user.json'), 'utf-8');
+            const userData = JSON.parse(userDataJson);
+            
             const fileInfo = req.files.map(file => {
 
+                userData.StorageUsed += file.size;
                 const fileId = file.filename.split('_')[2].split('.')[0]
                 const resData = {
                     fileId: fileId,
@@ -56,12 +64,12 @@ module.exports = {
                     size: file.size,
                     formatSize: fileSize(file.size),
                     link: {
-                        viewLink: "http://localhost:4002" + '/image/' + fileId,
-                        rawLink: "http://localhost:4002" + '/file/' + fileId,
-                        downloadLink: "http://localhost:4002" + '/file/' + fileId + '/download'
-                        // viewLink: process.env.webdomain + '/image/' + fileId,
-                        // rawLink: process.env.webdomain + '/file/' + fileId,
-                        // downloadLink: process.env.webdomain + '/file/' + fileId + '/download'
+                        // viewLink: "http://localhost:4002" + '/file/' + fileId,
+                        // rawLink: "http://localhost:4002" + '/cdn/' + fileId,
+                        // downloadLink: "http://localhost:4002" + '/cdn/' + fileId + '/download'
+                        viewLink: process.env.webdomain + '/file/' + fileId,
+                        rawLink: process.env.webdomain + '/cdn/' + fileId,
+                        downloadLink: process.env.webdomain + '/cdn/' + fileId + '/download'
                     },
                     other: {
                         originalName: file.originalname,
@@ -74,7 +82,9 @@ module.exports = {
             });
 
             for (let i = 0; i < fileInfo.length; i++) {
+
                 const resData = fileInfo[i];
+                userData.FileView.push({ FileId: resData.fileId, ViewCount: 0, DownloadConut: 0 });
 
                 await client.prisma.FileData.create({
                     data: {
@@ -101,6 +111,8 @@ module.exports = {
             }
 
             res.json({ message: 'Upload success', error: false, info: fileInfo });
+            userData.UploadCount += fileInfo.length
+            fs.writeFileSync(path.join(__dirname, '../../storage/', jsonData.userId, 'user.json'), JSON.stringify(userData, null, 2));
 
         });
     }

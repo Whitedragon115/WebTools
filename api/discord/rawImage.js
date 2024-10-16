@@ -9,7 +9,7 @@ module.exports = {
 
     async execute(app, client) {
 
-        app.get('/file/:fileId', async (req, res) => {
+        app.get('/cdn/:fileId', async (req, res) => {
 
             const fileId = req.params.fileId;
             const fileData = await client.prisma.FileData.findUnique({ where: { FileId: fileId } });
@@ -18,5 +18,6 @@ module.exports = {
             const filePath = path.join(__dirname, '../../storage/', fileData.UploaderID, fileData.Other.LongFileName);
             res.status(200).sendFile(filePath);
         });
+        
     }
 }
