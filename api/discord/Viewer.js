@@ -18,7 +18,7 @@ module.exports = {
                 const image = await client.prisma.FileData.findUnique({ where: { FileId: id } });
                 if (!image) return res.redirect('/404');
                 const imageowner = await client.prisma.User.findUnique({ where: { DiscordId: image.UploaderID } });
-                
+
                 const userDataJson = fs.readFileSync(path.join(__dirname, '../../storage/', image.UploaderID, 'user.json'), 'utf-8');
                 const userData = JSON.parse(userDataJson);
 
@@ -56,8 +56,6 @@ module.exports = {
 
 
         });
-
-
 
     }
 }

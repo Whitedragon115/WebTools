@@ -29,7 +29,7 @@ process.on('SIGINT', async () => {
     process.exit();
 });
 
-// Function Process
+
 
 async function startServer() {
     log('info', '正在初始化 Web 服務...');
@@ -46,15 +46,14 @@ async function startServer() {
 
 async function initialize() {
     try {
-        // 如果不需要數據庫檢查，直接啟動服務器
+        
         if (process.env.bypassDatabaseCheck === 'true') {
             log('warning', '已跳過數據庫檢查! 這可能導致潛在的數據不一致問題.');
             return await startServer();
         }
 
         log('info', '準備初始化 Prisma...');
-
-        // 生成 Prisma Client
+        
         try {
             log('database', '正在生成 Prisma Client...');
             execSync('npx prisma generate', { stdio: ['ignore', 'pipe', 'pipe'] });
@@ -62,8 +61,7 @@ async function initialize() {
         } catch (error) {
             log('warning', `無法生成 Prisma Client: ${error.message}`);
         }
-
-        // 初始化 Prisma Client
+        
         try {
             if (!prisma) {
                 const { PrismaClient } = await import('@prisma/client');
@@ -74,7 +72,7 @@ async function initialize() {
             await prisma.$connect();
             log('success', '數據庫連接成功！');
 
-            // 數據庫同步
+            
             try {
                 execSync('npx prisma db push --accept-data-loss', { stdio: ['ignore', 'pipe', 'pipe'] });
                 log('success', '數據庫結構同步完成');
@@ -90,7 +88,6 @@ async function initialize() {
 
     await startServer();
 }
-
 
 function log(type, message) {
     const timestamp = new Date().toLocaleTimeString();
